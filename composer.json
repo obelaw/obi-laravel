@@ -2,7 +2,7 @@
     "name": "obelaw/obi-laravel",
     "autoload": {
         "psr-4": {
-            "Obelaw\\ObiLaravel\\": "src/"
+            "Obelaw\\Obi\\": "src/"
         }
     },
     "authors": [
@@ -11,5 +11,12 @@
             "email": "komicho1996@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Obelaw\\Obi\\ObiServiceProvider"
+            ]
+        }
+    }
 }
