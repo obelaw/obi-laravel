@@ -7,6 +7,13 @@ use Gemini\Data\FunctionDeclaration;
 abstract class Declaration
 {
     /**
+     * The tag for grouping declarations.
+     *
+     * @var string|null
+     */
+    public ?string $tag = null;
+
+    /**
      * Get the function declaration for Gemini.
      *
      * @return FunctionDeclaration
@@ -56,7 +63,7 @@ abstract class Declaration
      */
     public function getTag(): ?string
     {
-        return null;
+        return $this->tag;
     }
 
     /**
