@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Obelaw\Obi\Console\Commands\DeclarationBuildCommand;
 use Obelaw\Obi\Console\Commands\DeclarationListCommand;
 use Obelaw\Obi\DeclarationPool;
+use Obelaw\Obi\Services\GeminiService;
 
 class ObiServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,7 @@ class ObiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('obi', GeminiService::class);
     }
 
     /**

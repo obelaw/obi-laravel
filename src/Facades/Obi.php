@@ -1,0 +1,18 @@
+<?php
+
+namespace Obelaw\Obi\Facades;
+
+use Illuminate\Support\Facades\Facade;
+
+class Obi extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'obi';
+    }
+}
