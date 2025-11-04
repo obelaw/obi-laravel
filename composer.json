@@ -11,7 +11,9 @@
             "email": "komicho1996@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "google-gemini-php/client": "^2.6"
+    },
     "extra": {
         "laravel": {
             "providers": [
