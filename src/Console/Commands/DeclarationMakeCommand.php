@@ -13,7 +13,7 @@ class DeclarationMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'declaration:make {name : The name of the declaration}';
+    protected $signature = 'obi:declaration:make {name : The name of the declaration}';
 
     /**
      * The console command description.

@@ -14,7 +14,7 @@ class DeclarationBuildCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'declaration:build 
+    protected $signature = 'obi:declaration:build 
                             {--fresh : Clear all existing declarations before building}
                             {--tag= : Build only declarations with specific tag}';
 

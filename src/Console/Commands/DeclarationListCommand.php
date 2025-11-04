@@ -13,7 +13,7 @@ class DeclarationListCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'declaration:list 
+    protected $signature = 'obi:declaration:list 
                             {--enabled : Show only enabled declarations}
                             {--tag= : Filter by tag}';
 
