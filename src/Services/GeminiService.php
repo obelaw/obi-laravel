@@ -16,7 +16,14 @@ class GeminiService
     {
         $declarationService = new DeclarationService;
 
-        $client = Gemini::client(env('GEMINI_API_KEY'));
+        $apiKey = config('obi.api_key');
+        $model = config('obi.model', 'gemini-2.5-flash');
+
+        if (empty($apiKey)) {
+            throw new \Exception('GEMINI_API_KEY is not configured. Please set it in your .env file or config/obi.php');
+        }
+
+        $client = Gemini::client($apiKey);
 
         // 2. Define your function(s) for the model
         $findMeetingTimeTool = new Tool(
@@ -24,7 +31,7 @@ class GeminiService
         );
 
         // 3. Start a chat session with the tool
-        $chat = $client->generativeModel('gemini-2.5-flash')
+        $chat = $client->generativeModel($model)
             ->withTool($findMeetingTimeTool)
             ->startChat();
 
@@ -36,25 +43,31 @@ class GeminiService
 
         if ($part->functionCall !== null) {
             $functionCall = $part->functionCall;
-            // echo "Model wants to call function: {$functionCall->name}\n";
+            
+            // Log if enabled
+            if (config('obi.logging.enabled')) {
+                \Log::channel(config('obi.logging.channel'))
+                    ->info('Gemini function call', [
+                        'function' => $functionCall->name,
+                        'args' => $functionCall->args,
+                    ]);
+            }
 
             // 6. Execute your local PHP function
-            // var_dump($functionCall->args, $functionCall->name);
-
             $functionResult = $declarationService->execute($functionCall->name, $functionCall->args);
 
-            // *** 7. (THIS WAS THE MISSING STEP) Send the function's result back to the model ***
+            // *** 7. Send the function's result back to the model ***
             $response = $chat->sendMessage(
                 new Content(
                     parts: [
                         new Part(
                             functionResponse: new FunctionResponse(
                                 name: $functionCall->name,
-                                response: $functionResult // Pass the array result directly
+                                response: $functionResult
                             )
                         )
                     ],
-                    role: Role::USER // This role is crucial
+                    role: Role::USER
                 )
             );
         }

@@ -19,7 +19,15 @@ class ObiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('obi', GeminiService::class);
+        // Merge config
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/obi.php',
+            'obi'
+        );
+
+        $this->app->singleton('obi', function ($app) {
+            return new GeminiService();
+        });
     }
 
     /**
@@ -29,16 +37,27 @@ class ObiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Register the default declarations path
-        DeclarationPool::addPath(base_path('declarations'));
+        // Publish config
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/obi.php' => config_path('obi.php'),
+            ], 'obi-config');
+        }
+
+        // Register declaration pools from config
+        $pools = config('obi.declaration_pools', [base_path('declarations')]);
+
+        foreach ($pools as $pool) {
+            DeclarationPool::addPath($pool);
+        }
 
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
             $this->commands([
-                DeclarationMakeCommand::class,
                 DeclarationListCommand::class,
                 DeclarationBuildCommand::class,
+                DeclarationMakeCommand::class,
             ]);
         }
     }
