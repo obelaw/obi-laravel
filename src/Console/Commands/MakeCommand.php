@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Obelaw\Obi\DeclarationPool;
 
-class DeclarationMakeCommand extends Command
+class MakeCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'obi:declaration:make {name : The name of the declaration}';
+    protected $signature = 'obi:make {name : The name of the declaration}';
 
     /**
      * The console command description.

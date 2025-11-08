@@ -3,9 +3,10 @@
 namespace Obelaw\Obi;
 
 use Illuminate\Support\ServiceProvider;
-use Obelaw\Obi\Console\Commands\DeclarationBuildCommand;
-use Obelaw\Obi\Console\Commands\DeclarationListCommand;
-use Obelaw\Obi\Console\Commands\DeclarationMakeCommand;
+use Obelaw\Obi\Console\Commands\BuildCommand;
+use Obelaw\Obi\Console\Commands\ListCommand;
+use Obelaw\Obi\Console\Commands\MakeCommand;
+use Obelaw\Obi\Console\Commands\PromptCommand;
 use Obelaw\Obi\DeclarationPool;
 use Obelaw\Obi\Services\GeminiService;
 
@@ -55,9 +56,10 @@ class ObiServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
             $this->commands([
-                DeclarationListCommand::class,
-                DeclarationBuildCommand::class,
-                DeclarationMakeCommand::class,
+                ListCommand::class,
+                BuildCommand::class,
+                MakeCommand::class,
+                PromptCommand::class,
             ]);
         }
     }

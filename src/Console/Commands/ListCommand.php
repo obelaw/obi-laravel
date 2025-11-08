@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use Obelaw\Obi\Declaration;
 use Obelaw\Obi\DeclarationPool;
 
-class DeclarationListCommand extends Command
+class ListCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'obi:declaration:list 
+    protected $signature = 'obi:list 
                             {--enabled : Show only enabled declarations}
                             {--tag= : Filter by tag}';
 

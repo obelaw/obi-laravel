@@ -7,14 +7,14 @@ use Obelaw\Obi\Declaration;
 use Obelaw\Obi\DeclarationPool;
 use Obelaw\Obi\Models\ObiDeclaration;
 
-class DeclarationBuildCommand extends Command
+class BuildCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'obi:declaration:build 
+    protected $signature = 'obi:build 
                             {--fresh : Clear all existing declarations before building}
                             {--tag= : Build only declarations with specific tag}';
 
