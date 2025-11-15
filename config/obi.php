@@ -4,6 +4,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Agent Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration settings for the AI agent behavior and identity.
+    | The nickname is used when the agent introduces itself or signs messages.
+    |
+    */
+
+    'agent' => [
+        'nickname' => env('OBI_AGENT_NICKNAME', 'Obi')
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Gemini API Key
     |--------------------------------------------------------------------------
     |
