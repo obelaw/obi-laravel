@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Obi\Services;
+namespace Obelaw\Obi\Drivers;
 
 use Gemini;
 use Gemini\Data\Content;
@@ -8,9 +8,10 @@ use Gemini\Data\FunctionResponse;
 use Gemini\Data\Part;
 use Gemini\Data\Tool;
 use Gemini\Enums\Role;
+use Obelaw\Obi\Contracts\Driver;
 use Obelaw\Obi\Services\DeclarationService;
 
-class GeminiService
+class GeminiDriver implements Driver
 {
     public function prompt(string $userPrompt)
     {

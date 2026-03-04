@@ -8,8 +8,7 @@ use Obelaw\Obi\Console\Commands\ListCommand;
 use Obelaw\Obi\Console\Commands\MakeCommand;
 use Obelaw\Obi\Console\Commands\PromptCommand;
 use Obelaw\Obi\DeclarationPool;
-use Obelaw\Obi\Services\GeminiService;
-
+use Obelaw\Obi\Drivers\GeminiDriver;
 class ObiServiceProvider extends ServiceProvider
 {
 
@@ -27,7 +26,16 @@ class ObiServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton('obi', function ($app) {
-            return new GeminiService();
+            $driver = config('obi.driver', 'gemini');
+
+            return match ($driver) {
+                'gemini' => new GeminiDriver(),
+                default => throw new \Exception("Driver [{$driver}] is not supported."),
+            };
+        });
+
+        $this->app->bind(\Obelaw\Obi\Contracts\Driver::class, function ($app) {
+            return $app->make('obi');
         });
     }
 
